@@ -8,7 +8,7 @@ class App extends Component{
     // the state object holds information that can be displayed to the user and updated throughout the program
     this.state = {
       // "phrase" is the text entered by the user - right now there are test words hard coded to make the process of testing your code faster and easier
-      // ACTION ITEM: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
+      // ***ACTION ITEM***: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
       phrase: "alpha through yummy squeal queen fry",
       // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button
       phraseTranslated: "This is where your translated sentence will appear."
@@ -25,7 +25,7 @@ class App extends Component{
 
     // now that we have an array of words, we can map over the array and access each word
     let translatedWordsArray = userInput.map(currentWord => {
-      // ACTION ITEM: use "currentWord" as a starting point for your code
+      // ***ACTION ITEM***: use "currentWord" as a starting point for your code
       console.log("currentWord:", currentWord)
 
       let vowelsArray = currentWord.split("").filter(vowel => {
@@ -34,35 +34,50 @@ class App extends Component{
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
+        // we should add code here that does something with the returned "vowelsArray"
+
+      // console.log("HERE IS THE SPLIT", currentWord.split("squ"))
+      console.log("first vowel finder:", currentWord, currentWord.search(/[aeiou]/))
+      
+      // Code for if the first letter is a vowel.
+      let transWord = (currentWord)
+      if(currentWord[0] === "a" || currentWord[0] === "e" || currentWord[0] === "i" || currentWord[0] === "o" || currentWord[0] === "u"){
+        return currentWord + "-way"
+      } else {
+        return currentWord
+      }
+
 
       // Remember: console.log is your friend :)
+      
 
-
-      // ACTION ITEM: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
-      return currentWord
+      // ***ACTION ITEM***: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
+      return transWord
+          // DEFAULT: currentWord
+          // We will need to make a variable that contains the translated Pig Latin'd word. We will take that variable and replace "return currentWord"
     })
 
 
     // joining the array back to a string of translated words
-    // no need to change this variable
+    // ***no need to change this variable***
     let translatedWords = translatedWordsArray.join(" ")
     console.log("translatedWords:", translatedWords)
 
     // the setState method will take your information from "translatedWords" and update the state object that is displayed to the user
-    // no need to change this method
+    // ***no need to change this method***
     this.setState({phraseTranslated: translatedWords})
   }
 
   restartGame = () => {
     // this method restarts the game by setting the original state
-    // ACTION ITEM: when you are ready for your full user experience, delete the test words in phrase so that is assigned an empty string
+    // ***ACTION ITEM***: when you are ready for your full user experience, delete the test words in phrase so that is assigned an empty string
     this.setState({
       phrase: "alpha through yummy squeal queen fry",
       phraseTranslated: "This is where your translated sentence will appear."
     })
   }
 
-  // no need to modify this method
+  // ***no need to modify this method***
   setUpPreventDefault = (e) => {
     // this method prevents React from refreshing the page unnecessarily
     e.preventDefault()
@@ -99,7 +114,7 @@ class App extends Component{
           <button onClick={this.restartGame}>Clear</button>
         </div>
         <p>{this.state.phraseTranslated}</p>
-        <footer>Coded by ~your name here~</footer>
+        <footer>Coded by Michael and Geovanna</footer>
       </>
     )
   }
