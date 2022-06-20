@@ -8,8 +8,8 @@ class App extends Component{
     // the state object holds information that can be displayed to the user and updated throughout the program
     this.state = {
       // "phrase" is the text entered by the user - right now there are test words hard coded to make the process of testing your code faster and easier
-      // ACTION ITEM: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
-      phrase: "alpha through yummy squeal queen fry",
+      // ***ACTION ITEM***: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
+      phrase: "",
       // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button
       phraseTranslated: "This is where your translated sentence will appear."
     }
@@ -25,7 +25,7 @@ class App extends Component{
 
     // now that we have an array of words, we can map over the array and access each word
     let translatedWordsArray = userInput.map(currentWord => {
-      // ACTION ITEM: use "currentWord" as a starting point for your code
+      // ***ACTION ITEM***: use "currentWord" as a starting point for your code
       console.log("currentWord:", currentWord)
 
       let vowelsArray = currentWord.split("").filter(vowel => {
@@ -33,36 +33,62 @@ class App extends Component{
       })
       console.log("vowelsArray:", vowelsArray)
 
-      // your code here!
+      console.log("first vowel finder:", currentWord, currentWord.search(/[aeiou]/))
+      
+      // Code for if the first letter is a vowel.
+      
+      let transWord = ""
+      if (currentWord[0] === vowelsArray[0])
+        // This portion deals with words starting with a vowel and translates it.
+      {
+          return currentWord + "-way";
+      } 
+      else if (currentWord.search(/qu/i) > -1 ){
+        // This portion searches for "qu" and translates the word.
+        let quSearch = currentWord.search(/qu/i)+2
+        return currentWord.slice(quSearch)+"-"+currentWord.slice(0,quSearch)+"ay"
+      }     
+      else if (currentWord[0] !== vowelsArray[0]){
+        // This portion deals with words that start with consonants
+        let sliceWord = currentWord.search(/[aeiou]/i)
+        return currentWord.slice(sliceWord) + "-" + currentWord.slice(0, sliceWord) + "ay"
+      }
+      
+      else {
+        return currentWord
+      }
+
 
       // Remember: console.log is your friend :)
+      
 
-
-      // ACTION ITEM: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
-      return currentWord
+      // ***ACTION ITEM***: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
+      return transWord
+          // DEFAULT: currentWord
+          // We will need to make a variable that contains the translated Pig Latin'd word. We will take that variable and replace "return currentWord"
     })
 
 
     // joining the array back to a string of translated words
-    // no need to change this variable
+    // ***no need to change this variable***
     let translatedWords = translatedWordsArray.join(" ")
     console.log("translatedWords:", translatedWords)
 
     // the setState method will take your information from "translatedWords" and update the state object that is displayed to the user
-    // no need to change this method
+    // ***no need to change this method***
     this.setState({phraseTranslated: translatedWords})
   }
 
   restartGame = () => {
     // this method restarts the game by setting the original state
-    // ACTION ITEM: when you are ready for your full user experience, delete the test words in phrase so that is assigned an empty string
+    // ***ACTION ITEM***: when you are ready for your full user experience, delete the test words in phrase so that is assigned an empty string
     this.setState({
-      phrase: "alpha through yummy squeal queen fry",
+      phrase: "",
       phraseTranslated: "This is where your translated sentence will appear."
     })
   }
 
-  // no need to modify this method
+  // ***no need to modify this method***
   setUpPreventDefault = (e) => {
     // this method prevents React from refreshing the page unnecessarily
     e.preventDefault()
@@ -86,6 +112,7 @@ class App extends Component{
         />
         <div className="inputArea">
           <h4>Enter phrase to be translated:</h4>
+          
           {/* user input field - every DOM event that happens in the input will call the handleChange method and update state */}
           <input
             type="text"
@@ -98,8 +125,9 @@ class App extends Component{
           <button onClick={this.setUpPreventDefault}>Submit</button>
           <button onClick={this.restartGame}>Clear</button>
         </div>
+        
         <p>{this.state.phraseTranslated}</p>
-        <footer>Coded by ~your name here~</footer>
+        <footer>Coded by Michael and Geovanna</footer>
       </>
     )
   }
